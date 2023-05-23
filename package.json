@@ -1,0 +1,19 @@
+{
+  "name": "cyberhocks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@oclif/core": "^2.8.5",
+    "axios": "^1.4.0"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0"
+  }
+}
