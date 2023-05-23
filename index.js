@@ -1,3 +1,5 @@
+
+
 const readline = require('readline');
 const axios = require('axios');
 
@@ -12,6 +14,10 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
+
+var TOKEN = '1440db4ab95b4b10bc4e6c53aee4c7db';
+
+
 async function createWallets() {
   try {
     const numWallets = await askQuestion('Enter the number of wallets you want to create: ');
@@ -22,11 +28,20 @@ async function createWallets() {
       walletNames.push(name);
     }
 
-    const normalWalletResponses = await createNormalWallet(walletNames);
-    console.log('Normal Wallets:', normalWalletResponses);
+    const walletType = await askQuestion('Enter the type of wallet you want to create (normal/HD): ');
 
-    const hdWalletResponses = await createHDWallet(walletNames);
-    console.log('HD Wallets:', hdWalletResponses);
+    let walletResponses;
+
+    if (walletType === 'normal') {
+      walletResponses = await createNormalWallet(walletNames , TOKEN);
+      console.log('Normal Wallets:', walletResponses);
+    } else if (walletType === 'HD') {
+      walletResponses = await createHDWallet(walletNames);
+      console.log('HD Wallets:', walletResponses);
+    } else {
+      console.log('Invalid wallet type.');
+      return;
+    }
 
   } catch (error) {
     console.error('An error occurred:', error);
@@ -62,11 +77,21 @@ async function fetchWalletData() {
 
   const walletName = await askQuestion('Enter the name of the wallet: ');
 
-  const normalWalletAddresses = await getNormalWalletAddresses(walletName);
+  const normalWalletAddresses = await getNormalWalletAddresses(walletName , TOKEN);
   console.log('Normal Wallet Addresses:', normalWalletAddresses);
 
   // const hdWalletDetails = await getHDWalletDetails('bob');
   // console.log('HD Wallet Details:', hdWalletDetails);
+}
+
+async function getTransaction() {
+
+  try {
+    const response = await axios.get(`https://api.blockcypher.com/v1/btc/main/forwards?token=${TOKEN}`);
+    console.log(response.data);
+  } catch (error) {
+    console.error('An error occurred:', error);
+  }
 }
 
 function askQuestion(question) {
@@ -83,6 +108,7 @@ console.log('1. Create wallets');
 console.log('2. Import wallets');
 console.log('3. Show wallet names');
 console.log('4. Show wallet balance');
+console.log('5. Show transaction');
 
 rl.question('Enter the option number: ', async (option) => {
   switch (option) {
@@ -97,6 +123,9 @@ rl.question('Enter the option number: ', async (option) => {
       break;
     case '4':
       await showWalletBalance();
+      break;
+    case '5':
+      await getTransaction();
       break;
     default:
       console.log('Invalid option.');

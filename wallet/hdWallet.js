@@ -5,10 +5,10 @@ async function createHDWallet(walletNames) {
     const responses = [];
 
     for (const name of walletNames) {
-      const uniqueName = `${name}-${Date.now()}`; // Append a unique identifier to the wallet name
+      // const uniqueName = `${name}-${Date.now()}`; // Append a unique identifier to the wallet name
 
       const data = {
-        name: uniqueName,
+        name: name,
         extended_public_key: 'xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8',
       };
 
