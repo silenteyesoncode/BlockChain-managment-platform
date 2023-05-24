@@ -23,3 +23,22 @@ Before running the application, make sure you have the following dependencies in
 
 ```bash
 git clone https://github.com/your-username/your-repo.git
+
+```
+
+## Configuration
+
+In order to access the Blockcypher API, you need to provide an API token.
+
+1. Obtain an API token from the Blockcypher website.
+2. Open the `index.js` file.
+3. Locate the `TOKEN` variable at the top of the file.
+4. Replace `'1440db4ab95b4b10bc4e6c53aee4c7db'` with your actual API token.
+
+## License
+
+This project is licensed under the MIT License.
+
+## Contributing
+
+Contributions are welcome! If you have any suggestions, bug reports, or feature requests, please open an issue or submit a pull request.
