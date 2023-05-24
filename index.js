@@ -9,6 +9,7 @@ const getWalletNames = require('./wallet/listWallet');
 const getWalletBalance = require('./wallet/walletBalance');
 const getNormalWalletAddresses = require('./wallet/normalWalletAddresses');
 const getHDWalletAddresses= require('./wallet/hdWalletAddresses');
+const getAddressInfo= require('./address');
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -116,6 +117,7 @@ console.log('2. Import wallets');
 console.log('3. Show wallet names');
 console.log('4. Show wallet balance');
 console.log('5. Show transaction');
+console.log('6. Show Address');
 
 rl.question('Enter the option number: ', async (option) => {
   switch (option) {
@@ -133,6 +135,9 @@ rl.question('Enter the option number: ', async (option) => {
       break;
     case '5':
       await getTransaction();
+      break;
+    case '6':
+      await getAddressInfo();
       break;
     default:
       console.log('Invalid option.');
