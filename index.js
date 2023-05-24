@@ -8,6 +8,7 @@ const createHDWallet = require('./wallet/hdWallet');
 const getWalletNames = require('./wallet/listWallet');
 const getWalletBalance = require('./wallet/walletBalance');
 const getNormalWalletAddresses = require('./wallet/normalWalletAddresses');
+const getHDWalletAddresses= require('./wallet/hdWalletAddresses');
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -75,13 +76,19 @@ async function showWalletBalance() {
 
 async function fetchWalletData() {
 
+  const walletType = await askQuestion('Enter the type of wallet you want (normal/HD): ');
+
   const walletName = await askQuestion('Enter the name of the wallet: ');
-
-  const normalWalletAddresses = await getNormalWalletAddresses(walletName , TOKEN);
-  console.log('Normal Wallet Addresses:', normalWalletAddresses);
-
-  // const hdWalletDetails = await getHDWalletDetails('bob');
-  // console.log('HD Wallet Details:', hdWalletDetails);
+  
+  if (walletType === 'normal') {
+    const normalWalletAddresses = await getNormalWalletAddresses(walletName, TOKEN);
+    console.log('Normal Wallet Addresses:', normalWalletAddresses);
+  } else if (walletType === 'HD') {
+    const hdWalletDetails = await getHDWalletAddresses(walletName, TOKEN);
+    console.log('HD Wallet Details:', hdWalletDetails);
+  } else {
+    console.log('Invalid wallet type.');
+  }
 }
 
 async function getTransaction() {
